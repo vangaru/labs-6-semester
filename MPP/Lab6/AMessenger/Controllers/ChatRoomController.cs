@@ -25,16 +25,13 @@ namespace AMessenger.Controllers
 
         public async Task<IActionResult> Index(int? id)
         {
-            var chatRoom = await _dbContext.ChatRooms
-                .Include(c => c.Messages)
-                .ThenInclude(m => m.Author).FirstOrDefaultAsync(c => c.Id == id);
+            var chatRoom = await _dbContext.ChatRooms.FirstOrDefaultAsync(c => c.Id == id);
             var viewModel = new ChatRoomViewModel
             {
                 ChatRoom = chatRoom
             };
             var messages = await _dbContext.Messages.Where(m => m.ChatRoom.Id == chatRoom.Id)
                 .ToListAsync();
-            Console.WriteLine(messages.Count);
             return View(viewModel);
         }
 
