@@ -1,0 +1,70 @@
+@model AMessenger.Models.ViewModels.ChatRoomViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>@Model.ChatRoom.Text</h2>
+
+<div class="container">
+    <div class="row">
+        <ul>
+            <div id="inputForm">
+                <input type="text" class="form-control" id="message" />
+                <input type="button" class="btn btn-primary mt-2" id="sendBtn" value="Send" />
+            </div>
+            <div class="chatroom" id="@Model.ChatRoom.Id">
+                @{
+                    Model.ChatRoom.Messages.Reverse();
+                    foreach (var message in Model.ChatRoom.Messages)
+                    {
+                        <div class="mt-2">
+                            <p>
+                                <br/>
+                                @message.Text
+                            </p>
+                        </div>
+                    }
+                }
+            </div>
+            <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+            <script>
+                const hubConnection = new signalR.HubConnectionBuilder()
+                .withUrl("/chatroom")
+                .build();
+                
+                const chatRoom = document.getElementsByClassName("chatroom")[0];
+                
+                hubConnection.on("SendMessage", function (message, url) {
+                    if (document.URL === url) {
+                        let div = document.createElement("div");
+                        let date = document.createElement("span");
+                        date.appendChild(document.createTextNode(new Date().toLocaleDateString("en-US")));
+                        date.classList.add("text-muted");
+                        let elem = document.createElement("p");
+                        elem.appendChild(date);
+                        elem.appendChild(document.createElement("br"));
+                        elem.appendChild(document.createTextNode(message));
+                        div.appendChild(elem);
+                        div.classList.add("mt-2");
+                        let firstElem = chatRoom.firstChild;
+                        chatRoom.insertBefore(div, firstElem);   
+                    }
+                });
+        
+                document.getElementById("sendBtn").addEventListener("click", function (e) {
+                    let message = document.getElementById("message").value;
+                    hubConnection.invoke("SendMessage", message, parseInt(chatRoom.id), document.URL);
+                    message.value = '';
+                });
+ 
+                hubConnection.start();
+         </script>
+        </ul>
+    </div>
+</div>
+
+
+<div class="container">
+    
+</div>

@@ -1,0 +1,26 @@
+﻿@model AMessenger.Models.ViewModels.IndexViewModel
+
+<div class="text-center">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center">
+                <a asp-area="" asp-controller="Home" asp-action="CreateRoom">Create New Room</a>
+            </div>
+        </div>
+    </div>
+    <h1 class="display-4">Available rooms</h1>
+    <div class="row">
+        <div class="col-12">
+            @foreach (var chatRoom in Model.ChatRooms)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@chatRoom.Text</h5>
+                        <h6 class="card-subtitle text-muted mb-2">@chatRoom.DateTimeCreated.ToShortDateString()</h6>
+                        <a asp-area="" asp-controller="ChatRoom" asp-action="Index" asp-route-id="@chatRoom.Id" class="card-link">Chat</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

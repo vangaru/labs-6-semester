@@ -1,0 +1,17 @@
+@model AMessenger.Models.ValidationModels.CreateRoomValidationModel
+
+@{
+    Layout = "_Layout";
+}
+
+<h1>Create Chat Room</h1>
+<form asp-action="CreateRoom" asp-controller="CreateRoom">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div class="container">
+        <div class="form-group">
+            <label asp-for="Text" class="control-label">Name of the chat room</label>
+            <input type="text" asp-for="Text" class="form-control" content="Create" required>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </div>
+</form>
