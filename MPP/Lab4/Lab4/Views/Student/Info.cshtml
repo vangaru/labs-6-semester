@@ -1,0 +1,50 @@
+﻿@using DAL.Models
+@model StudentInfoViewModel
+
+@{
+    ViewData["Title"] = "Student Info";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2>Student Info: @Model.Student?.Id</h2>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-6">
+        <h3>@Model.Student?.Name</h3>
+    </div>
+    <div class="col-6">
+        <h4>@Model.Student?.Group?.Name</h4>
+    </div>
+</div>
+<h5>Subjects</h5>
+@foreach (Subject subject in Model.Student?.Subjects!)
+{
+    <div class="row">
+        <div class="col-6">
+            <p>@subject.Id</p>
+        </div>
+        <div class="col-6">
+            <p>@subject.Name</p>
+        </div>
+    </div>
+}
+<div class="row mt-5">
+    <h4>Add subject:</h4>
+    <div class="col-12">
+        <form method="post">
+            <div class="form">
+                <select class="form-control"
+                        asp-items="@(new SelectList(Model.Subjects, "Id", "Name"))"
+                        name="subjectId"
+                        id="subjectId">
+                </select>
+                <input type="hidden" name="studentId" id="studentId" value="@Model.Student?.Id" />
+            </div>
+            <span asp-validation-for="SelectedSubjectId" class="text-danger"></span><br/>
+            <button type="submit" class="btn btn-primary mt-2">Add</button>
+        </form>
+    </div>
+</div>

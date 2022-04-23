@@ -1,0 +1,18 @@
+﻿<Window x:Class="Labs.MPP.Lab2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="90" Width="120">
+    <StackPanel>
+        <TextBox Name="UpperLimitTextBox" MinHeight="30">
+        </TextBox>
+        <Button Margin="6" Padding="6" Name="PerformCalculationButton" MinHeight="30" Click="PerformCalculationButton_OnClick">
+            Calculate
+        </Button>
+        <TextBlock Name="CalculationResult" MinHeight="30">
+            
+        </TextBlock>
+    </StackPanel>
+</Window>

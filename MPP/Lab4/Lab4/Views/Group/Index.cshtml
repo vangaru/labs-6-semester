@@ -1,0 +1,20 @@
+﻿@model CreateGroupViewModel;
+
+@{
+    ViewData["Title"] = "Create Group";
+}
+
+<form method="post">
+    <div class="form">
+        <label class="form-label" for="name">Group Name</label>
+        <input class="form-control" type="text" name="name" id="name" />
+        <span asp-validation-for="Name" class="text-danger"></span><br/>
+        <select class="form-control"
+                asp-items="@(new SelectList(Model.Faculties, "Id", "Name"))"
+                name="selectedFacultyId" 
+                id="selectedFacultyId">
+        </select>
+        <span asp-validation-for="SelectedFacultyId" class="text-danger"></span><br/>
+        <button type="submit" class="btn btn-primary mt-2">Create</button>
+    </div>
+</form>

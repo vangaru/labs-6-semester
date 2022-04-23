@@ -1,0 +1,70 @@
+﻿@using DAL.Models
+@model HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-3">
+        <a class="text-dark" asp-area="" asp-controller="Group" asp-action="Index">
+            Create new Group
+        </a>
+    </div>
+    <div class="col-3">
+        <a class="text-dark" asp-area="" asp-controller="Student" asp-action="Index">
+            Create new Student
+        </a>
+    </div>
+    <div class="col-3">
+        <a class="text-dark" asp-area="" asp-controller="Faculty" asp-action="Index">
+            Create new Faculty
+        </a>
+    </div>
+    <div class="col-3">
+        <a class="text-dark" asp-area="" asp-controller="Subject" asp-action="Index">
+            Create new Subject
+        </a>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Student Id</th>
+            <th scope="col"><a asp-controller="Home" asp-action="Sort">Name</a></th>
+            <th scope="col">Group</th>
+            <th scope="col">Subjects</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><a asp-action="Index">Remove filters</a></td>
+            <td>
+                <form method="get" asp-action="Filter">
+                    <div class="form">
+                        <input type="text" name="filterName" id="filterName"/>
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @foreach (Student student in Model.Students!)
+        {
+            <tr>
+                <td>
+                    <a asp-area="" asp-controller="Student" asp-action="Info" asp-route-id="@student.Id">
+                        @student.Id
+                    </a>
+                </td>
+                <td>@student.Name</td>
+                <td>@student.Group!.Name</td>
+                <td>@student.Subjects?.Count</td>
+                <td><a asp-controller="Home" asp-action="Index" asp-route-id="@student.Id">Delete</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

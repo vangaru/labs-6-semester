@@ -1,0 +1,20 @@
+﻿@model CreateStudentViewModel
+
+@{
+    ViewData["Title"] = "Create Student";
+}
+
+<form method="post">
+    <div class="form">
+        <label class="form-label" for="name">Student Name</label>
+        <input class="form-control" type="text" name="name" id="name" />
+        <span asp-validation-for="Name" class="text-danger"></span><br />
+        <select class="form-control"
+                asp-items="@(new SelectList(Model.Groups, "Id", "Name"))"
+                name="selectedGroupId"
+                id="selectedGroupId">
+        </select>
+        <span asp-validation-for="SelectedGroupId" class="text-danger"></span><br />
+        <button type="submit" class="btn btn-primary mt-2">Create</button>
+    </div>
+</form>

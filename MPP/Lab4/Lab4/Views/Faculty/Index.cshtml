@@ -1,0 +1,16 @@
+﻿@model CreateFacultyViewModel;
+
+@{
+    ViewData["Title"] = "Create Faculty";
+}
+
+<h1> Create new Faculty </h1>
+
+<form method="post">
+    <div class="form">
+        <label class="form-label" for="name">Faculty Name</label>
+        <input class="form-control" type="text" name="name" id="name" />
+        <span asp-validation-for="Name" class="text-danger"></span><br/>
+        <button type="submit" class="btn btn-primary mt-2">Create</button>
+    </div>
+</form>
